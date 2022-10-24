@@ -4,10 +4,18 @@ const app = express();
 const port = process.env.PORT || 3000;
 const users = require('./data/users.json');
 const path = require('path');
+const favicon = require('serve-favicon');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+
+// use files in public folder
+
+app.use(express.static('public'));
+
+app.use(favicon(path.join(__dirname,'../public', 'icons', 'favicon.ico')));
 
 function sleep(delay) {
   return new Promise((resolve) =>
@@ -111,10 +119,6 @@ app.post('/submit', async (req, res) => {
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
-
-// use files in public folder
-
-app.use(express.static('public'));
 
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
