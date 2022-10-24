@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const users = require('./data/users.json');
 const path = require('path');
 
@@ -103,7 +103,7 @@ app.post('/submit', async (req, res) => {
   // data is valid.  Send user to submit page
 
   res.status(200).json({message: 'registration success'});
-  
+
 });
 
 // sendFile
