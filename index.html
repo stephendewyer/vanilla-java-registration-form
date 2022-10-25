@@ -6,7 +6,7 @@
         <meta property="og:image"  content="/images/vanilla_bean.jpg">
         <title>sample registration form using vanilla JavaScript, Node.js and Express.js</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
     </head>
     <body>
         <h1 class="heading01">
@@ -213,6 +213,142 @@
                 };
             });
 
+            // set the form feedback message variables
+
+            let nameMessage = "";
+            let emailMessage = "";
+            let referrerMessage = "";
+            let referrerNameMessage = ""
+
+            // client-side form data validation
+            var nameInput = document.getElementById("name");
+            var emailInput = document.getElementById("email");
+            var referrerInput = document.getElementById("referrer");
+            var referrerNameInput = document.getElementById("referrerName");
+
+            nameInput.addEventListener("blur", nameInputHandler);
+            nameInput.addEventListener("change", nameInputHandler);
+            nameInput.addEventListener("keyup", nameInputKeyupHandler);
+
+            emailInput.addEventListener("blur", emailInputHandler);
+            emailInput.addEventListener("change", emailInputHandler);
+            emailInput.addEventListener("keyup", emailInputKeyupHandler);
+
+            referrerInput.addEventListener("blur", referrerInputHandler);
+            referrerInput.addEventListener("change", referrerInputHandler);
+
+            referrerNameInput.addEventListener("blur", referrerNameInputHandler);
+            referrerNameInput.addEventListener("change", referrerNameInputHandler);
+            referrerNameInput.addEventListener("keyup", referrerNameInputKeyupHandler);
+
+            function nameInputHandler() {
+                let nameInputValue = document.getElementById("name").value;
+                nameMessage = "";
+                var nameRGEX = /^[A-Za-z '-]{1,100}$/;
+                var testedName = nameRGEX.test(nameInputValue);
+                if (nameInputValue == null || nameInputValue == "") {
+                    nameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
+                } 
+                else if (testedName == false) {
+                    nameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
+                } 
+                else {
+                    nameMessage = "";
+                }  
+                document.getElementById("nameValidationMessage").innerHTML = nameMessage;
+            };
+
+            function nameInputKeyupHandler() {
+                let nameInputValue = document.getElementById("name").value;
+                nameMessage = "";
+                var nameRGEX = /^[A-Za-z '-]{1,100}$/;
+                var testedName = nameRGEX.test(nameInputValue);
+                if (nameInputValue == null || nameInputValue == "") {
+                    nameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
+                } 
+                else if (testedName == false) {
+                    nameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
+                } 
+                else {
+                    nameMessage = "";
+                }  
+                document.getElementById("nameValidationMessage").innerHTML = nameMessage;
+            };
+
+            function emailInputHandler() {
+                let emailInputValue = document.getElementById("email").value;
+                var emailRGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                var testedEmail = emailInputValue.match(emailRGEX);
+                emailMessage = "";
+                if (emailInputValue === "") {
+                    emailMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing email address";
+                } else if (emailInputValue.indexOf('@') == -1) {
+                    emailMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>email address is missing an @ symbol";
+                } else if (testedEmail === null) {
+                    emailMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>invalid email addresss"
+                } else {
+                    emailMessage = "";
+                };
+                document.getElementById("emailValidationMessage").innerHTML = emailMessage;
+
+            };
+
+            function emailInputKeyupHandler() {
+                let emailInputValue = document.getElementById("email").value;
+                emailMessage = "";
+                if (emailInputValue === "") {
+                    emailMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing email address";
+                } else {
+                    emailMessage = "";
+                };
+                document.getElementById("emailValidationMessage").innerHTML = emailMessage;
+
+            };
+
+            function referrerInputHandler() {
+                let referrerInputValue = document.getElementById("referrer").value;
+                var otherReferrerField = document.getElementById("otherReferrerName");
+                if (referrerInputValue === "other") {
+                    otherReferrerField.style.display = "block";
+                } else {
+                    otherReferrerField.style.display = "none";
+                };                        
+            };
+
+            function referrerNameInputHandler() {
+                let referrerNameInputValue = document.getElementById("referrerName").value;
+                referrerNameMessage = "";
+                var referrerNameRGEX = /^[A-Za-z '-]{1,100}$/;
+                var testedReferrerName = referrerNameRGEX.test(referrerNameInputValue);
+                if (referrerNameInputValue == null || referrerNameInputValue == "") {
+                    referrerNameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
+                } 
+                else if (testedReferrerName == false) {
+                    referrerNameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
+                } 
+                else {
+                    referrerNameMessage = "";
+                }  
+                document.getElementById('referrerNameValidationMessage').innerHTML = referrerNameMessage;
+            };
+
+            function referrerNameInputKeyupHandler() {
+                let referrerNameInputValue = document.getElementById("referrerName").value;
+                referrerNameMessage = "";
+                var referrerNameRGEX = /^[A-Za-z '-]{1,100}$/;
+                var testedReferrerName = referrerNameRGEX.test(referrerNameInputValue);
+                if (referrerNameInputValue == null || referrerNameInputValue == "") {
+                    referrerNameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
+                } 
+                else if (testedReferrerName == false) {
+                    referrerNameMessage = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
+                } 
+                else {
+                    referrerNameMessage = "";
+                }  
+                document.getElementById("referrerNameValidationMessage").innerHTML = referrerNameMessage;
+            };
+
             // send data to the server after button is clicked
 
             async function submitHandler(button) {
@@ -235,6 +371,11 @@
                 });
 
                 const data = await response.json();
+
+                // client-side form validation immediately after sending the form data
+                nameInputHandler()
+                emailInputHandler()
+                referrerNameInputHandler()
 
                 // console.log(data.message);
 
@@ -263,136 +404,6 @@
                 };
 
             }
-
-            // client-side form data validation
-            var nameInput = document.getElementById("name");
-            var emailInput = document.getElementById("email");
-            var referrerInput = document.getElementById("referrer");
-            var referrerNameInput = document.getElementById("referrerName");
-
-            nameInput.addEventListener("blur", nameInputHandler);
-            nameInput.addEventListener("change", nameInputHandler);
-            nameInput.addEventListener("keyup", nameInputKeyupHandler);
-
-            emailInput.addEventListener("blur", emailInputHandler);
-            emailInput.addEventListener("change", emailInputHandler);
-            emailInput.addEventListener("keyup", emailInputKeyupHandler);
-
-            referrerInput.addEventListener("blur", referrerInputHandler);
-            referrerInput.addEventListener("change", referrerInputHandler);
-
-            referrerNameInput.addEventListener("blur", referrerNameInputHandler);
-            referrerNameInput.addEventListener("change", referrerNameInputHandler);
-            referrerNameInput.addEventListener("keyup", referrerNameInputKeyupHandler);
-
-            function nameInputHandler() {
-                let nameInputValue = document.getElementById("name").value;
-                let message = "";
-                var nameRGEX = /^[A-Za-z '-]{1,100}$/;
-                var testedName = nameRGEX.test(nameInputValue);
-                if (nameInputValue == null || nameInputValue == "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
-                } 
-                else if (testedName == false) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
-                } 
-                else {
-                    message = "";
-                }  
-                document.getElementById("nameValidationMessage").innerHTML = message;
-            };
-
-            function nameInputKeyupHandler() {
-                let nameInputValue = document.getElementById("name").value;
-                let message = "";
-                var nameRGEX = /^[A-Za-z '-]{1,100}$/;
-                var testedName = nameRGEX.test(nameInputValue);
-                if (nameInputValue == null || nameInputValue == "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
-                } 
-                else if (testedName == false) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
-                } 
-                else {
-                    message = "";
-                }  
-                document.getElementById("nameValidationMessage").innerHTML = message;
-            };
-
-            function emailInputHandler() {
-                let emailInputValue = document.getElementById("email").value;
-                let message;
-                var emailRGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                var testedEmail = emailInputValue.match(emailRGEX);
-
-                if (emailInputValue === "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing email address";
-                } else if (emailInputValue.indexOf('@') == -1) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>email address is missing an @ symbol";
-                } else if (testedEmail === null) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>invalid email addresss"
-                } else {
-                    message = "";
-                };
-                document.getElementById("emailValidationMessage").innerHTML = message;
-
-            };
-
-            function emailInputKeyupHandler() {
-                let emailInputValue = document.getElementById("email").value;
-                let message;
-                if (emailInputValue === "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing email address";
-                } else {
-                    message = "";
-                };
-                document.getElementById("emailValidationMessage").innerHTML = message;
-
-            };
-
-            function referrerInputHandler() {
-                let referrerInputValue = document.getElementById("referrer").value;
-                var otherReferrerField = document.getElementById("otherReferrerName");
-                if (referrerInputValue === "other") {
-                    otherReferrerField.style.display = "block";
-                } else {
-                    otherReferrerField.style.display = "none";
-                };                        
-            };
-
-            function referrerNameInputHandler() {
-                let referrerNameInputValue = document.getElementById("referrerName").value;
-                let message = "";
-                var referrerNameRGEX = /^[A-Za-z '-]{1,100}$/;
-                var testedReferrerName = referrerNameRGEX.test(referrerNameInputValue);
-                if (referrerNameInputValue == null || referrerNameInputValue == "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
-                } 
-                else if (testedReferrerName == false) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
-                } 
-                else {
-                    message = "";
-                }  
-                document.getElementById('referrerNameValidationMessage').innerHTML = message;
-            };
-
-            function referrerNameInputKeyupHandler() {
-                let referrerNameInputValue = document.getElementById("referrerName").value;
-                let message = "";
-                var referrerNameRGEX = /^[A-Za-z '-]{1,100}$/;
-                var testedReferrerName = referrerNameRGEX.test(referrerNameInputValue);
-                if (referrerNameInputValue == null || referrerNameInputValue == "") {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>missing name";
-                } 
-                else if (testedReferrerName == false) {
-                    message = "<div class='errorIcon'><img src='/icons/error_icon.svg' alt='error icon' /></div>name can only contain alpha characters, spaces, hyphens and apostrophes"
-                } 
-                else {
-                    message = "";
-                }  
-                document.getElementById("referrerNameValidationMessage").innerHTML = message;
-            };
 
         </script>
     </body>
